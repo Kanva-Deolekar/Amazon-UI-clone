@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign-In</title>
+  <link rel="stylesheet" href="sigin.css">
+ 
+</head>
+<body>
+
+  <div class="top-image">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
+  </div>
+
+  <div class="login-box">
+    <h1>Sign-In</h1>
+    <form id="loginForm">
+      <label for="email">Email or mobile phone number</label>
+      <input type="text" id="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required />
+
+      <div id="errorMsg" class="error"></div>
+
+      <button type="submit">Sign-In</button>
+    </form>
+
+    <div class="help">
+      <a href="#">Forgot your password?</a>
+    </div>
+  </div>
+
+  <div class="divider">New to Amazon?</div>
+
+  <div class="create-account">Create your Amazon account</div>
+
+  <footer>
+    <a href="#">Conditions of Use</a>
+    <a href="#">Privacy Notice</a>
+    <a href="#">Help</a>
+    <p>© 1996–2025, Amazon.com, Inc. or its affiliates</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const errorMsg = document.getElementById("errorMsg");
+
+    
+    const accounts = [
+      { email: "kanvafamt19@gmail.com", password: "thekanva123" },
+      { email: "nandufamt29@gmail.com",  password: "thenandu123" },
+      { email: "monufamt13@gmail.com",   password: "themonu123" }
+    ];
+
+        const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); 
+      errorMsg.textContent = "";
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !password) {
+        errorMsg.textContent = "Please fill in both fields.";
+        return;
+      }
+
+      
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = "Invalid email format.";
+        return;
+      }
+
+      
+      const validUser = accounts.find(
+        acc => acc.email.toLowerCase() === email.toLowerCase() && acc.password === password
+      );
+
+      if (validUser) {
+        
+        
+        window.location.href = "amazon.html";
+      } else {
+                const emailExists = accounts.some(acc => acc.email.toLowerCase() === email.toLowerCase());
+        if (emailExists) {
+          errorMsg.textContent = "Wrong password.";
+        } else {
+          errorMsg.textContent = "Wrong email or password.";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
